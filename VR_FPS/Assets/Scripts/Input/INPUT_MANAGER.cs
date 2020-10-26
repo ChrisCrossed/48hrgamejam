@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.XR;
 
 public struct PlayerInput
 {
@@ -24,12 +26,26 @@ public class INPUT_MANAGER : MonoBehaviour
 
     InputType inputType = InputType.KeyMouse;
 
+    List<InputDevice> inputDevices;
+    InputDevice vrDevice;
+    XRNode leftHand = XRNode.LeftHand;
+    XRNode rightHand = XRNode.RightHand;
+
     internal PlayerInput playerInput;
 
+    private void OnEnable()
+    {
+        if (!vrDevice.isValid)
+            GetVRDevice();
+    }
+
     // Start is called before the first frame update
-    internal virtual void Start()
+    // internal virtual void Start()
+    protected void Start()
     {
         playerInput = new PlayerInput();
+
+        
     }
 
     // Update is called once per frame
@@ -37,6 +53,22 @@ public class INPUT_MANAGER : MonoBehaviour
     {
         UpdateMovementVector();
     }
+
+    #region VR Devices
+    void GetVRDevice()
+    {
+        inputDevices = new List<UnityEngine.XR.InputDevice>();
+        InputDevices.GetDevicesAtXRNode(rightHand, inputDevices);
+        vrDevice = inputDevices.FirstOrDefault();
+
+        print("Got Here");
+
+        foreach (var device in inputDevices)
+        {
+            Debug.Log(string.Format("Device found with name '{0}' and role '{1}'", device.name, device.role.ToString()));
+        }
+    }
+    #endregion
 
     #region Movement Information
     internal virtual void UpdateMovementVector()
@@ -58,7 +90,7 @@ public class INPUT_MANAGER : MonoBehaviour
                 break;
         }
 
-        print( movementVector );
+        // print( movementVector );
 
         playerInput.MovementVector = movementVector;
     }
