@@ -81,6 +81,15 @@
       "name": "/actions/mixedreality/in/ExternalCamera",
       "type": "pose",
       "requirement": "optional"
+    },
+    {
+      "name": "/actions/FPS/in/Movement",
+      "type": "vector2"
+    },
+    {
+      "name": "/actions/FPS/in/SkeletonLeftHand",
+      "type": "skeleton",
+      "skeleton": "/skeleton/hand/right"
     }
   ],
   "action_sets": [
@@ -98,6 +107,10 @@
     },
     {
       "name": "/actions/mixedreality",
+      "usage": "single"
+    },
+    {
+      "name": "/actions/FPS",
       "usage": "single"
     }
   ],
