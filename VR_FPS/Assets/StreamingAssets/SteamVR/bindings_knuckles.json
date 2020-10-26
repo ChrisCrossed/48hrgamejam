@@ -369,7 +369,7 @@
    "category" : "steamvr_input",
    "controller_type" : "knuckles",
    "description" : "",
-   "name" : "VR_FPS",
+   "name" : "vrfps_default",
    "options" : {},
    "simulated_actions" : []
 }

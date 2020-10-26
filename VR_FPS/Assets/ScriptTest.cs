@@ -16,6 +16,11 @@ public class ScriptTest : MonoBehaviour
     private bool fireGun;
     private bool triggerPressed;
 
+    GameObject reticle_Back;
+    GameObject reticle_Front;
+
+    [SerializeField] GameObject targetDummyManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,24 +28,48 @@ public class ScriptTest : MonoBehaviour
         Trigger.AddOnStateUpListener(TriggerUp, thisHand);
 
         thisFireball = handModel.transform.Find("Fireball");
+
+        reticle_Back = handModel.transform.Find("raycast_back").gameObject;
+        reticle_Front = handModel.transform.Find("raycast_front").gameObject;
     }
 
     public void TriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
     {
-        Debug.Log("Trigger is Up");
         triggerPressed = false;
     }
 
     public void TriggerDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
     {
-        Debug.Log("Trigger is Down");
-        if( !triggerPressed ) fireGun = true;
+        if (!triggerPressed)
+        {
+            fireGun = true;
+
+            FireBullet();
+        }
+    }
+
+    void FireBullet()
+    {
+        targetDummyManager.GetComponent<TargetDummyManager>().IncrementShotsTaken();
+
+        Vector3 fireVector = reticle_Front.transform.position - reticle_Back.transform.position;
+        fireVector.Normalize();
+
+        RaycastHit _hit;
+        LayerMask enemyLayer = LayerMask.NameToLayer("Enemy");
+        if (Physics.Raycast(reticle_Back.transform.position, fireVector, out _hit))
+        {
+            if(_hit.collider.gameObject.layer == enemyLayer)
+            {
+                _hit.collider.gameObject.GetComponent<TargetDummy>().TakeDamage();
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (fireGun)
+        if( fireGun )
         {
             fireGun = false;
             fireballTimer = fireballTimerMax;
@@ -48,7 +77,7 @@ public class ScriptTest : MonoBehaviour
             thisFireball.GetComponent<MeshRenderer>().enabled = true;
         }
 
-        if(fireballTimer > 0f)
+        if( fireballTimer > 0f )
         {
             fireballTimer -= Time.deltaTime;
             if (fireballTimer <= 0f)
