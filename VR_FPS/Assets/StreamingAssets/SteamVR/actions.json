@@ -90,6 +90,14 @@
       "name": "/actions/FPS/in/SkeletonLeftHand",
       "type": "skeleton",
       "skeleton": "/skeleton/hand/right"
+    },
+    {
+      "name": "/actions/FPS/in/RightHandTrigger",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/FPS/in/LeftHandTrigger",
+      "type": "boolean"
     }
   ],
   "action_sets": [
@@ -111,7 +119,7 @@
     },
     {
       "name": "/actions/FPS",
-      "usage": "single"
+      "usage": "leftright"
     }
   ],
   "default_bindings": [

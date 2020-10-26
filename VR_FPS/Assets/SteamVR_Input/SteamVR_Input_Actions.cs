@@ -59,6 +59,10 @@ namespace Valve.VR
         
         private static SteamVR_Action_Skeleton p_fPS_SkeletonLeftHand;
         
+        private static SteamVR_Action_Boolean p_fPS_RightHandTrigger;
+        
+        private static SteamVR_Action_Boolean p_fPS_LeftHandTrigger;
+        
         public static SteamVR_Action_Boolean default_InteractUI
         {
             get
@@ -227,6 +231,22 @@ namespace Valve.VR
             }
         }
         
+        public static SteamVR_Action_Boolean fPS_RightHandTrigger
+        {
+            get
+            {
+                return SteamVR_Actions.p_fPS_RightHandTrigger.GetCopy<SteamVR_Action_Boolean>();
+            }
+        }
+        
+        public static SteamVR_Action_Boolean fPS_LeftHandTrigger
+        {
+            get
+            {
+                return SteamVR_Actions.p_fPS_LeftHandTrigger.GetCopy<SteamVR_Action_Boolean>();
+            }
+        }
+        
         private static void InitializeActionArrays()
         {
             Valve.VR.SteamVR_Input.actions = new Valve.VR.SteamVR_Action[] {
@@ -250,7 +270,9 @@ namespace Valve.VR
                     SteamVR_Actions.buggy_Reset,
                     SteamVR_Actions.mixedreality_ExternalCamera,
                     SteamVR_Actions.fPS_Movement,
-                    SteamVR_Actions.fPS_SkeletonLeftHand};
+                    SteamVR_Actions.fPS_SkeletonLeftHand,
+                    SteamVR_Actions.fPS_RightHandTrigger,
+                    SteamVR_Actions.fPS_LeftHandTrigger};
             Valve.VR.SteamVR_Input.actionsIn = new Valve.VR.ISteamVR_Action_In[] {
                     SteamVR_Actions.default_InteractUI,
                     SteamVR_Actions.default_Teleport,
@@ -271,7 +293,9 @@ namespace Valve.VR
                     SteamVR_Actions.buggy_Reset,
                     SteamVR_Actions.mixedreality_ExternalCamera,
                     SteamVR_Actions.fPS_Movement,
-                    SteamVR_Actions.fPS_SkeletonLeftHand};
+                    SteamVR_Actions.fPS_SkeletonLeftHand,
+                    SteamVR_Actions.fPS_RightHandTrigger,
+                    SteamVR_Actions.fPS_LeftHandTrigger};
             Valve.VR.SteamVR_Input.actionsOut = new Valve.VR.ISteamVR_Action_Out[] {
                     SteamVR_Actions.default_Haptic};
             Valve.VR.SteamVR_Input.actionsVibration = new Valve.VR.SteamVR_Action_Vibration[] {
@@ -289,7 +313,9 @@ namespace Valve.VR
                     SteamVR_Actions.default_SnapTurnRight,
                     SteamVR_Actions.platformer_Jump,
                     SteamVR_Actions.buggy_Brake,
-                    SteamVR_Actions.buggy_Reset};
+                    SteamVR_Actions.buggy_Reset,
+                    SteamVR_Actions.fPS_RightHandTrigger,
+                    SteamVR_Actions.fPS_LeftHandTrigger};
             Valve.VR.SteamVR_Input.actionsSingle = new Valve.VR.SteamVR_Action_Single[] {
                     SteamVR_Actions.default_Squeeze,
                     SteamVR_Actions.buggy_Throttle};
@@ -317,7 +343,9 @@ namespace Valve.VR
                     SteamVR_Actions.buggy_Throttle,
                     SteamVR_Actions.buggy_Brake,
                     SteamVR_Actions.buggy_Reset,
-                    SteamVR_Actions.fPS_Movement};
+                    SteamVR_Actions.fPS_Movement,
+                    SteamVR_Actions.fPS_RightHandTrigger,
+                    SteamVR_Actions.fPS_LeftHandTrigger};
         }
         
         private static void PreInitActions()
@@ -343,6 +371,8 @@ namespace Valve.VR
             SteamVR_Actions.p_mixedreality_ExternalCamera = ((SteamVR_Action_Pose)(SteamVR_Action.Create<SteamVR_Action_Pose>("/actions/mixedreality/in/ExternalCamera")));
             SteamVR_Actions.p_fPS_Movement = ((SteamVR_Action_Vector2)(SteamVR_Action.Create<SteamVR_Action_Vector2>("/actions/FPS/in/Movement")));
             SteamVR_Actions.p_fPS_SkeletonLeftHand = ((SteamVR_Action_Skeleton)(SteamVR_Action.Create<SteamVR_Action_Skeleton>("/actions/FPS/in/SkeletonLeftHand")));
+            SteamVR_Actions.p_fPS_RightHandTrigger = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/FPS/in/RightHandTrigger")));
+            SteamVR_Actions.p_fPS_LeftHandTrigger = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/FPS/in/LeftHandTrigger")));
         }
     }
 }

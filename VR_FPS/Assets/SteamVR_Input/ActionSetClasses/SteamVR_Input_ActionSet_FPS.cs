@@ -32,5 +32,21 @@ namespace Valve.VR
                 return SteamVR_Actions.fPS_SkeletonLeftHand;
             }
         }
+        
+        public virtual SteamVR_Action_Boolean RightHandTrigger
+        {
+            get
+            {
+                return SteamVR_Actions.fPS_RightHandTrigger;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean LeftHandTrigger
+        {
+            get
+            {
+                return SteamVR_Actions.fPS_LeftHandTrigger;
+            }
+        }
     }
 }
