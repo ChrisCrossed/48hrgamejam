@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
+// using UnityEditor.Animations;
 using UnityEngine;
 using Valve.VR;
 
 public class ScriptTest : MonoBehaviour
 {
     public SteamVR_Action_Boolean Trigger;
+    public SteamVR_Action_Vector2 Movement;
     public SteamVR_Input_Sources thisHand;
     public GameObject handModel;
 
@@ -24,13 +25,23 @@ public class ScriptTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Each Trigger
         Trigger.AddOnStateDownListener(TriggerDown, thisHand);
         Trigger.AddOnStateUpListener(TriggerUp, thisHand);
+
+        // Movement.AddOnAxisListener(MovementAxis, thisHand);
+        // Movement.AddOnActiveBindingChangeListener(MovementAxis, thisHand);
+        
 
         thisFireball = handModel.transform.Find("Fireball");
 
         reticle_Back = handModel.transform.Find("raycast_back").gameObject;
         reticle_Front = handModel.transform.Find("raycast_front").gameObject;
+    }
+
+    public void MovementAxis(SteamVR_Action_Vector2 inputVector, SteamVR_Input_Sources fromSource)
+    {
+
     }
 
     public void TriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
@@ -69,6 +80,18 @@ public class ScriptTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Movement != null)
+        {
+            Vector2 output = new Vector2();
+
+            if (Movement.changed)
+            {
+                output = Movement.axis;
+            }
+
+            print(output);
+        }
+
         if( fireGun )
         {
             fireGun = false;
